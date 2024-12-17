@@ -3,6 +3,8 @@ package stepdefinition;
 import common.WebAPI;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
+import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
 import org.openqa.selenium.support.PageFactory;
 import rainforestpage.Homepage;
 
@@ -24,5 +26,14 @@ public class HomePageStepdefinition extends WebAPI {
     static Homepage homepage;
     public static void getInitElements(){
         homepage = PageFactory.initElements(driver,Homepage.class);
+    }
+    @Given("I navigate to the Rainforest homepage")
+    public void I_navigate_to_the_Rainforest_homepage(){
+        getInitElements();
+    }
+    @Then("The page title should be {string}")
+    public void The_page_title_should_be(String string){
+        getInitElements();
+        string = "RainForest";
     }
 }
