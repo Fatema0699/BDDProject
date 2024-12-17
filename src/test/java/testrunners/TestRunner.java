@@ -1,4 +1,4 @@
-package homepagetest;
+package testrunners;
 
 import io.cucumber.junit.Cucumber;
 import io.cucumber.junit.CucumberOptions;
@@ -14,5 +14,5 @@ import org.junit.runner.RunWith;
         dryRun = false,
         tags = "")
 
-public class Homepagetest {
+public class TestRunner {
 }
