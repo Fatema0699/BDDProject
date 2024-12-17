@@ -31,10 +31,14 @@ public class HomePageStepdefinition extends WebAPI{
     public void I_navigate_to_the_Rainforest_homepage(){
         getInitElements();
     }
-    @Then("The page title should be {string}")
-    public void The_page_title_should_be(String string){
+    @Then("The page title should be RainForest")
+    public void The_page_title_should_be_RainForest(){
         getInitElements();
-        string = "RainForest";
     }
+    @Then("The header should display RainForest")
+    public void The_header_should_display_RainForest(){
+        getInitElements();
+    }
+
 
 }

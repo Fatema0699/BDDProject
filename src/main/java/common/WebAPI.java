@@ -1,5 +1,6 @@
 package common;
 
+
 import io.cucumber.java.Scenario;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -27,6 +28,7 @@ import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 public class WebAPI {
+
     //Browser SetUp
     public static WebDriver driver = null;
     public String browserstack_username = "";
@@ -584,5 +586,4 @@ public class WebAPI {
         String childWindow=iter.next();
         driver.switchTo().window(childWindow);
     }
-
 }
