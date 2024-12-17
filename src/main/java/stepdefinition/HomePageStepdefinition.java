@@ -10,7 +10,7 @@ import rainforestpage.Homepage;
 
 import java.io.IOException;
 
-public class HomePageStepdefinition extends WebAPI {
+public class HomePageStepdefinition extends WebAPI{
     @Before
     public void envAndSetup() throws IOException {
         setUp(false,
@@ -36,4 +36,5 @@ public class HomePageStepdefinition extends WebAPI {
         getInitElements();
         string = "RainForest";
     }
+
 }
