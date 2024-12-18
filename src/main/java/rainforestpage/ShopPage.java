@@ -29,7 +29,6 @@ public class ShopPage extends WebAPI {
         driver.switchTo().window(newTabs.get(1));
         driver.switchTo().window(newTabs.get(0));
     }
-
     //validation and assertion
     public void validateNewTab(){
         String actualUrl = driver.getCurrentUrl();
