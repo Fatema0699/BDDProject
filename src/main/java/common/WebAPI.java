@@ -37,11 +37,11 @@ public class WebAPI {
     public String saucelabs_accesskey = "";
 
 
-    public void cleanUp(){
+    public void cleanUp() {
         driver.quit();
     }
 
-    public void setUp(boolean useCloudEnv,  String cloudEnvName,
+    public void setUp(boolean useCloudEnv, String cloudEnvName,
                       String os, String os_version, String browserName,
                       String browserVersion, String url) throws IOException {
 
@@ -63,7 +63,7 @@ public class WebAPI {
     public WebDriver getLocalDriver(String OS, String browserName) {
 
         if (browserName.equalsIgnoreCase("chrome")) {
-            ChromeOptions options=new ChromeOptions();
+            ChromeOptions options = new ChromeOptions();
             options.addArguments("--disable-notifications");
             options.addArguments("--remote-allow-origins=*");
             if (OS.equalsIgnoreCase("OS X")) {
@@ -92,7 +92,7 @@ public class WebAPI {
         } else if (browserName.equalsIgnoreCase("Edge")) {
             // System.setProperty("webdriver.edge.driver", "Driver/EdgeDriver/MSEdge131/msedgedriver.exe");
             driver = new EdgeDriver();
-        } else if(browserName.equalsIgnoreCase("headlessbrowser")){
+        } else if (browserName.equalsIgnoreCase("headlessbrowser")) {
             EdgeOptions options = new EdgeOptions();
             options.addArguments("--headless=true");
             driver = new EdgeDriver(options);
@@ -119,7 +119,6 @@ public class WebAPI {
         }
         return driver;
     }
-
 
 
     //helper methods
@@ -192,6 +191,7 @@ public class WebAPI {
     public void navigateBack() {
         driver.navigate().back();
     }
+
     public void navigateTo(String url) {
         driver.navigate().to(url);
     }
@@ -199,6 +199,7 @@ public class WebAPI {
     public void navigateForward() {
         driver.navigate().forward();
     }
+
     public void navigateRefresh() {
         driver.navigate().refresh();
     }
@@ -213,14 +214,13 @@ public class WebAPI {
     }
 
 
-
     public static String captureScreenshot(Scenario scenario, WebDriver driver, String screenshotName) throws IOException {
 
         //create a string variable which will be unique always
         String df = new SimpleDateFormat("yyyyMMddhhmmss").format(new Date());
 
         //create object variable of TakeScreenshot class
-        TakesScreenshot ts = (TakesScreenshot)driver;
+        TakesScreenshot ts = (TakesScreenshot) driver;
 
         //create File object variable which holds the screen shot reference
         File source = ts.getScreenshotAs(OutputType.FILE);
@@ -238,7 +238,6 @@ public class WebAPI {
         return path;
 
     }
-
 
 
     public static String convertToString(String st) {
@@ -551,39 +550,44 @@ public class WebAPI {
         String text = webElement.getText();
         return text;
     }
-    public void dropDownByCSS(WebElement element, String value){
+
+    public void dropDownByCSS(WebElement element, String value) {
 //        WebElement element=driver.
-        Select select=new Select(element);
+        Select select = new Select(element);
         select.selectByVisibleText(value);
     }
 
-    public void mouseHover(WebElement element){
-        Actions actions=new Actions(driver);
+    public void mouseHover(WebElement element) {
+        Actions actions = new Actions(driver);
         actions.moveToElement(element).build().perform();
     }
 
 
-    public void implicitWait(int sec){
-        driver.manage().timeouts().implicitlyWait(sec,TimeUnit.SECONDS) ;
+    public void implicitWait(int sec) {
+        driver.manage().timeouts().implicitlyWait(sec, TimeUnit.SECONDS);
     }
-    public void scrollDownVertically(){
-        JavascriptExecutor js = (JavascriptExecutor)driver;
+
+    public void scrollDownVertically() {
+        JavascriptExecutor js = (JavascriptExecutor) driver;
 //        js.executeScript("scrollBy(0,8500)");
         js.executeScript("window.scrollTo(0, document.body.scrollHeight)");
     }
-    public void scrollUpVertically(){
-        JavascriptExecutor js = (JavascriptExecutor)driver;
+
+    public void scrollUpVertically() {
+        JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("scrollBy(0,-8000)");
     }
-    public void validateTestCase(WebElement element,String expectedResult){
-        String actualResult=element.getText();
-        Assert.assertEquals("Search Result not Displayed",expectedResult,actualResult);
+
+    public void validateTestCase(WebElement element, String expectedResult) {
+        String actualResult = element.getText();
+        Assert.assertEquals("Search Result not Displayed", expectedResult, actualResult);
     }
-    public void windowHandle(){
-        Set<String> windowIds =driver.getWindowHandles();
-        Iterator<String> iter=windowIds.iterator();
-        String mainWindow=iter.next();
-        String childWindow=iter.next();
+
+    public void windowHandle() {
+        Set<String> windowIds = driver.getWindowHandles();
+        Iterator<String> iter = windowIds.iterator();
+        String mainWindow = iter.next();
+        String childWindow = iter.next();
         driver.switchTo().window(childWindow);
     }
 }
