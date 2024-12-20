@@ -50,3 +50,40 @@ Feature: Rainforest Homepage Tests
     And User clicks and enters password on the password field
     When User click on the Cancel button
     Then the fields should be clear out
+
+  @Dropdowntest
+  Scenario: Validate dropdown selection displays the correct message
+    Given I navigate to the Rainforest homepage
+    When I select Congo Rainforest from the dropdown
+    Then I should see "You selected: Congo" displayed
+
+  @DynamicDropdown
+  Scenario Outline: Validate dropdown selection displays the correct message
+    Given I navigate to the Rainforest homepage
+    When I select <item> from the dropdown
+    Then I should able to see <message> displayed
+
+    Examples:
+      | item     | message                |
+      | Congo    | You selected: Congo    |
+      | Daintree | You selected: Daintree |
+
+  @Radiobtntest
+  Scenario: Validate Jaguar radio button displays the correct message
+    Given I navigate to the Rainforest homepage
+    When I select the Jaguar radio button
+    Then I should see You selected: Jaguar displayed
+
+  @MultipleRadiobtntest
+  Scenario Outline: Validate Multiple radio button selections
+    Given I navigate to the Rainforest homepage
+    When I select <item> from the radio button section
+    Then I should be able to see <message> dispalyed
+
+    Examples:
+      | item   | message              |
+      | Jaguar | You selected: Jaguar |
+      | Sloth  | You selected: Sloth  |
+
+
+

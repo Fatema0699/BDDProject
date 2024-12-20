@@ -165,4 +165,77 @@ public class HomePageStepdefinition extends WebAPI {
         homepage.clearOutFormvalidation();
     }
 
+    @When("I select Congo Rainforest from the dropdown")
+    public void i_select_Congo_Rainforest_from_the_dropdown() {
+        homepage.assertDropdownValueSelection();
+    }
+
+    @Then("I should see {string} displayed")
+    public void i_should_see_displayed(String string) {
+        string = "You selected: Congo";
+        homepage.validatedropdownValue();
+    }
+
+    //    @When("I select Amazon Rainforest  from the dropdown")
+//    public void i_select_Amazon_Rainforest_from_the_dropdown() {
+//        homepage.assertDynamicDropdownValueSelection();
+//    }
+//
+//    @Then("I should see {string} displayed")
+//    public void i_should_see_displayed(String string) {
+//        string = "You selected: Amazon";
+//        homepage.validatedynamicdropdownValue();
+//    }
+
+    @When("I select Congo from the dropdown")
+    public void i_select_Congo_from_the_dropdown() {
+        homepage.assertDropdownValueSelection();
+    }
+
+    @Then("I should able to see You selected: Congo displayed")
+    public void i_should_able_to_see_You_selected_Congo_displayed() {
+        homepage.validatedropdownValue();
+    }
+
+    @When("I select Daintree from the dropdown")
+    public void i_select_Daintree_from_the_dropdown() {
+        homepage.assertDynamicDropdownValueSelection();
+    }
+
+    @Then("I should able to see You selected: Daintree displayed")
+    public void i_should_able_to_see_You_selected_Amazon_displayed() {
+        homepage.validateDynamicdropdownValue();
+    }
+
+    @When("I select the Jaguar radio button")
+    public void I_select_the_Jaguar_radio_button() {
+        homepage.clickOnRadiobtn1();
+    }
+
+    @Then("I should see You selected: Jaguar displayed")
+    public void I_should_see_You_selected_Jaguar_displayed() {
+        homepage.validateRadiobtn();
+    }
+
+    @When("I select Jaguar from the radio button section")
+    public void i_select_Jaguar_from_the_radio_button_section() {
+        homepage.clickOnRadiobtn1();
+    }
+
+    @Then("I should be able to see You selected: Jaguar dispalyed")
+    public void i_should_be_able_to_see_You_selected_Jaguar_dispalyed() {
+        homepage.validateRadiobtn();
+    }
+
+    @When("I select Sloth from the radio button section")
+    public void i_select_Sloth_from_the_radio_button_section() {
+        homepage.clickOnRadiobtn2();
+    }
+
+    @Then("I should be able to see You selected: Sloth dispalyed")
+    public void i_should_be_able_to_see_You_selected_Sloth_dispalyed() {
+        homepage.validatemultipleRadiobtn();
+    }
+
+
 }
