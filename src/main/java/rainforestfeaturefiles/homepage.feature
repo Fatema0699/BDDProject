@@ -85,5 +85,22 @@ Feature: Rainforest Homepage Tests
       | Jaguar | You selected: Jaguar |
       | Sloth  | You selected: Sloth  |
 
+  @Checkboxtest
+  Scenario: Validate multiple checkbox selections display the correct message
+    Given I navigate to the Rainforest homepage
+    When I select Medicinal Plants and Timber checkboxes
+    Then I should see You selected: Medicinal Plants, Timber displayed
 
+  @UnCheckboxtest
+  Scenario: Validate message when all checkboxes are deselected
+    Given I navigate to the Rainforest homepage
+    When I select Medicinal Plants and Timber checkboxes
+    And I deselect all checkboxes
+    Then I should see No resources selected. displayed
+
+  @Datepicker
+  Scenario: Validate date selection updates the displayed message
+    Given I navigate to the Rainforest homepage
+    When I select "12/21/2024" from the date picker
+    Then I should see the "You selected: 2024-12-21"
 

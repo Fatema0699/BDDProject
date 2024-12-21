@@ -237,5 +237,41 @@ public class HomePageStepdefinition extends WebAPI {
         homepage.validatemultipleRadiobtn();
     }
 
+    @When("I select Medicinal Plants and Timber checkboxes")
+    public void I_select_Medicinal_Plants_and_Timber_checkboxes() {
+        homepage.clickOnCheckbox1();
+        homepage.clickOnCheckbox2();
+    }
 
+    @Then("I should see You selected: Medicinal Plants, Timber displayed")
+    public void I_should_see_You_selected_Medicinal_Plants_Timber_displayed() {
+        homepage.validatemultipleCheckboxSelection();
+    }
+
+    @When("I select Medicinal Plants checkboxes")
+    public void I_select_Medicinal_Plants_checkboxes() {
+        homepage.clickOnCheckbox1();
+    }
+
+    @When("I deselect all checkboxes")
+    public void I_deselect_all_checkboxes() {
+        homepage.validateUnCheckedbox();
+    }
+
+    @Then("I should see No resources selected. displayed")
+    public void I_should_see_No_resources_selected_displayed() {
+        homepage.validateUnCheckboxmessage();
+    }
+
+    @When("I select {string} from the date picker")
+    public void i_select_from_the_date_picker(String string) {
+        string = "12/21/2024";
+        homepage.datePicker(string);
+    }
+
+    @Then("I should see the {string}")
+    public void I_should_see_the(String string){
+        string="You selected: 2024-12-21";
+        homepage.datePickerAssertion();
+    }
 }

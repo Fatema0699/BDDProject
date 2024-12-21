@@ -46,6 +46,16 @@ public class Homepage extends WebAPI {
     public WebElement radiobtn2Webelement;
     @FindBy(how = How.ID, using = "radioResult")
     public WebElement radiobtnResultWebelement;
+    @FindBy(how = How.ID, using = "checkbox1")
+    public WebElement checkBox1Webelement;
+    @FindBy(how = How.ID, using = "checkbox2")
+    public WebElement checkBox2Webelement;
+    @FindBy(how = How.ID, using = "checkboxResult")
+    public WebElement checkboxResultWebelement;
+    @FindBy(how = How.ID, using = "datePicker")
+    public WebElement datePickerWebelement;
+    @FindBy(how = How.ID, using = "dateResult")
+    public WebElement datepickerResultWebelement;
 
     //Action methods
     public void clickOnHomeLink() {
@@ -93,6 +103,19 @@ public class Homepage extends WebAPI {
 
     public void clickOnRadiobtn2() {
         radiobtn2Webelement.click();
+    }
+
+    public void clickOnCheckbox1() {
+        checkBox1Webelement.click();
+
+    }
+
+    public void clickOnCheckbox2() {
+        checkBox2Webelement.click();
+    }
+
+    public void datePicker(String date){
+        datePickerWebelement.sendKeys(date);
     }
 
     //Validation and assertion
@@ -193,6 +216,7 @@ public class Homepage extends WebAPI {
         String expected = "You selected: Jaguar";
         Assert.assertEquals("Assertion failed", expected, actual);
     }
+
     public void validatemultipleRadiobtn() {
         boolean selected = true;
         selected = radioBtn1Webelement.isSelected();
@@ -201,5 +225,34 @@ public class Homepage extends WebAPI {
         String expected = "You selected: Sloth";
         Assert.assertEquals("Assertion failed", expected, actual);
     }
+
+    public void validatemultipleCheckboxSelection() {
+        String actual = checkboxResultWebelement.getText();
+        String expected = "You selected: Medicinal Plants, Timber";
+        Assert.assertEquals("Assertion failed", expected, actual);
+    }
+
+    public void validateUnCheckedbox() {
+        if (checkBox1Webelement.isSelected()) {
+            clickOnCheckbox1();
+        }
+        if (checkBox2Webelement.isSelected()) {
+            clickOnCheckbox2();
+        }
+    }
+
+    public void validateUnCheckboxmessage() {
+        String actual = checkboxResultWebelement.getText();
+        String expected = "No resources selected.";
+        Assert.assertEquals("Assertion failed", expected, actual);
+    }
+
+    public void datePickerAssertion(){
+        String actual = datepickerResultWebelement.getText();
+        String expected = "You selected: 2024-12-21";
+        Assert.assertEquals("Assertion failed", expected, actual);
+    }
+
+
 
 }
