@@ -47,7 +47,14 @@ public class ShopPage extends WebAPI {
     public void newTabOpen() {
         List<String> newTabs = new ArrayList<>(driver.getWindowHandles());
         driver.switchTo().window(newTabs.get(1));
+    }
+    public void OldTabOpen() {
+        List<String> newTabs = new ArrayList<>(driver.getWindowHandles());
         driver.switchTo().window(newTabs.get(0));
+    }
+    public void AnotherTabOpen() {
+        List<String> newTabs = new ArrayList<>(driver.getWindowHandles());
+        driver.switchTo().window(newTabs.get(2));
     }
 
     public void clickOnShop3() {
@@ -75,24 +82,25 @@ public class ShopPage extends WebAPI {
     }
 
     //validation and assertion
-    public void validateNewTab() {
+    public void validateNewTabShop1(String expectedUrl) {
         String actualUrl = driver.getCurrentUrl();
-        String expectedUrl = "https://";
+        assertEquals("The URL of the new tab does not match", expectedUrl, actualUrl);
+    }
+    public void validateNewTabShop2(String expectedUrl) {
+        String actualUrl = driver.getCurrentUrl().split("\\?")[0];
         assertEquals("The URL of the new tab does not match", expectedUrl, actualUrl);
     }
 
-    public void validateAlertforShop3() {
+    public void validateAlertforShop3(String expectedMessage) {
         Alert alert = driver.switchTo().alert();
         String actualMessage = alert.getText();
-        String expectedMessage = "You are entering the Shop 3 shop!";
         assertEquals("Alert message is incorrect", expectedMessage, actualMessage);
         alert.accept();
     }
 
-    public void validateAlertforShop4() {
+    public void validateAlertforShop4(String expectedMessage) {
         Alert alert = driver.switchTo().alert();
         String actualMessage = alert.getText();
-        String expectedMessage = "You are entering the Shop 4 shop!";
         assertEquals("Alert message is incorrect", expectedMessage, actualMessage);
         alert.accept();
     }
@@ -107,9 +115,8 @@ public class ShopPage extends WebAPI {
         Assert.assertFalse("Modal should be closed", querymodalWebelement.isDisplayed());
     }
 
-    public void validatebacktohomepage() {
+    public void validatebacktohomepage(String expectedUrl) {
         String actualUrl = driver.getCurrentUrl();
-        String expectedUrl = "https://monsur26.github.io/mypage/index.html";
         assertEquals("The URL of the new tab does not match", expectedUrl, actualUrl);
     }
 

@@ -12,7 +12,7 @@ Feature: Rainforest Homepage Tests
   Scenario: Navigation bar links
     Given I navigate to the Rainforest homepage
     When I click on the Home link
-    Then I should be redirected to the homepage "https://monsur26.github.io/mypage"
+    Then I should be redirected to the homepage "https://monsur26.github.io/mypage/#"
     When I click on the Shop link
     Then I should be redirected to the shoppage "https://monsur26.github.io/mypage/shop"
     When I click on the Back to home link
@@ -32,7 +32,7 @@ Feature: Rainforest Homepage Tests
   Scenario: Login form empty input validation
     Given I navigate to the Rainforest homepage
     When the user leaves the username and password fields blank
-    And clicks the login button
+    And  User clicks on the Login button
     Then the browser should highlight the required fields
 
   @invaliduser
@@ -40,7 +40,7 @@ Feature: Rainforest Homepage Tests
     Given I navigate to the Rainforest homepage
     When User clicks and enters invalid username on the username field
     And User clicks and enters invalid password on the password field
-    When User click on the Login button
+    When User clicks on the Login button
     Then User should see an Error message
 
   @clearform
@@ -60,8 +60,8 @@ Feature: Rainforest Homepage Tests
   @DynamicDropdown
   Scenario Outline: Validate dropdown selection displays the correct message
     Given I navigate to the Rainforest homepage
-    When I select <item> from the dropdown
-    Then I should able to see <message> displayed
+    When I select "<item>" from the dropdown
+    Then I should able to see "<message>" displayed
 
     Examples:
       | item     | message                |
@@ -78,7 +78,7 @@ Feature: Rainforest Homepage Tests
   Scenario Outline: Validate Multiple radio button selections
     Given I navigate to the Rainforest homepage
     When I select <item> from the radio button section
-    Then I should be able to see <message> dispalyed
+    Then I should be able to see "<message>" displayed
 
     Examples:
       | item   | message              |
@@ -89,14 +89,14 @@ Feature: Rainforest Homepage Tests
   Scenario: Validate multiple checkbox selections display the correct message
     Given I navigate to the Rainforest homepage
     When I select Medicinal Plants and Timber checkboxes
-    Then I should see You selected: Medicinal Plants, Timber displayed
+    Then A valid message "You selected: Medicinal Plants, Timber" should displayed
 
   @UnCheckboxtest
   Scenario: Validate message when all checkboxes are deselected
     Given I navigate to the Rainforest homepage
     When I select Medicinal Plants and Timber checkboxes
     And I deselect all checkboxes
-    Then I should see No resources selected. displayed
+    Then A message "No resources selected." should displayed
 
   @Datepicker
   Scenario: Validate date selection updates the displayed message
@@ -104,3 +104,14 @@ Feature: Rainforest Homepage Tests
     When I select "12/21/2024" from the date picker
     Then I should see the "You selected: 2024-12-21"
 
+  @Interactivetable1
+  Scenario: Click on "Rainforest Name" column to sort
+    Given I navigate to the Rainforest homepage
+    When I click on the Rainforest Name column header
+    Then the Rainforest Name column should be sorted alphabetically
+
+  @Interactivetable2
+  Scenario: Type "Amazon" in the filter input to see the data
+    Given  I navigate to the Rainforest homepage
+    When I type "Amazon" in the filter input
+    Then only rows containing "Amazon" should be displayed

@@ -41,9 +41,11 @@ public class ShopPageStepdefinition extends WebAPI {
 
     @Then("a new tab with URL {string} should open")
     public void a_new_tab_with_URL_should_open(String string) {
-        string = "https://www.example1.com";
         shopPage.newTabOpen();
+        shopPage.validateNewTabShop1(string);
+        shopPage.OldTabOpen();
     }
+
 
     @When("I click on Shop 2")
     public void i_click_on_Shop_2() {
@@ -52,8 +54,8 @@ public class ShopPageStepdefinition extends WebAPI {
 
     @Then("again a new tab with URL {string} should open")
     public void again_a_new_tab_with_URL_should_open(String string) {
-        string = "https://www.example2.com";
-        shopPage.newTabOpen();
+        shopPage.AnotherTabOpen();
+        shopPage.validateNewTabShop2(string);
     }
 
     @When("I click on Shop 3")
@@ -63,8 +65,7 @@ public class ShopPageStepdefinition extends WebAPI {
 
     @Then("an alert for shop3 should display the message {string}")
     public void an_alert_for_shop3_should_display_the_message(String string) {
-        string = "You are entering the Shop 3 shop!";
-        shopPage.validateAlertforShop3();
+        shopPage.validateAlertforShop3(string);
     }
 
     @When("I click on Shop 4")
@@ -74,8 +75,7 @@ public class ShopPageStepdefinition extends WebAPI {
 
     @Then("an alert for shop4 should display the message {string}")
     public void an_alert_for_shop4_should_display_the_message(String string) {
-        string = "You are entering the Shop 4 shop!";
-        shopPage.validateAlertforShop4();
+        shopPage.validateAlertforShop4(string);
     }
 
     @When("I click on Submit a query button")
@@ -125,8 +125,7 @@ public class ShopPageStepdefinition extends WebAPI {
 
     @Then("I should redirected to the homepage {string}")
     public void I_should_redirected_to_the_homepage(String string) {
-        string = "https://monsur26.github.io/mypage/index.html";
-        shopPage.validatebacktohomepage();
+        shopPage.validatebacktohomepage(string);
     }
 
 }

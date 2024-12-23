@@ -49,9 +49,8 @@ public class HomePageStepdefinition extends WebAPI {
     }
 
     @Then("I should be redirected to the homepage {string}")
-    public void i_should_be_redirected_to_the_homepage(String string) {
-        string = "https://monsur26.github.io/mypage/#";
-        homepage.validatehomelink();
+    public void i_should_be_redirected_to_the_homepage(String expectedUrl) {
+        homepage.validatehomelink(expectedUrl);
     }
 
     @When("I click on the Shop link")
@@ -60,9 +59,8 @@ public class HomePageStepdefinition extends WebAPI {
     }
 
     @Then("I should be redirected to the shoppage {string}")
-    public void i_should_be_redirected_to_the_shoppage(String string) {
-        string = "https://monsur26.github.io/mypage/shop";
-        homepage.validateshoplink();
+    public void i_should_be_redirected_to_the_shoppage(String expectedUrl) {
+        homepage.validateshoplink(expectedUrl);
     }
 
     @When("I click on the Back to home link")
@@ -71,9 +69,8 @@ public class HomePageStepdefinition extends WebAPI {
     }
 
     @Then("I should be back to the homepage {string}")
-    public void I_should_be_back_to_the_homepage(String string) {
-        string = "https://monsur26.github.io/mypage/index.html";
-        homepage.validatebacktohomelink();
+    public void I_should_be_back_to_the_homepage(String expectedUrl) {
+        homepage.validatebacktohomelink(expectedUrl);
     }
 
     @When("I click on the Contact link")
@@ -82,10 +79,9 @@ public class HomePageStepdefinition extends WebAPI {
     }
 
     @Then("I should be redirected to the contactpage {string}")
-    public void i_should_be_redirected_to_the_contactpage(String string) {
-        string = "https://monsur26.github.io/mypage/contact.html";
+    public void i_should_be_redirected_to_the_contactpage(String expectedUrl) {
         homepage.newTabOpen();
-        homepage.validatecontactlink();
+        homepage.validatecontactlink(expectedUrl);
     }
 
     @When("User clicks and enters valid username on the username field")
@@ -114,11 +110,6 @@ public class HomePageStepdefinition extends WebAPI {
         homepage.enterPassword("");
     }
 
-    @When("clicks the login button")
-    public void clicks_the_login_button() {
-        homepage.clickOnLoginButton();
-    }
-
     @Then("the browser should highlight the required fields")
     public void the_browser_should_highlight_the_required_fields() {
         homepage.EmptyUsernameCredAssertion();
@@ -133,11 +124,6 @@ public class HomePageStepdefinition extends WebAPI {
     @When("User clicks and enters invalid password on the password field")
     public void User_clicks_and_enter_invalid_password_on_the_password_field() {
         homepage.enterPassword("Pass");
-    }
-
-    @When("User click on the Login button")
-    public void User_click_on_the_Login_button() {
-        homepage.clickOnLoginButton();
     }
 
     @Then("User should see an Error message")
@@ -171,9 +157,8 @@ public class HomePageStepdefinition extends WebAPI {
     }
 
     @Then("I should see {string} displayed")
-    public void i_should_see_displayed(String string) {
-        string = "You selected: Congo";
-        homepage.validatedropdownValue();
+    public void i_should_see_displayed(String expected) {
+        homepage.validatedropdownValue(expected);
     }
 
     //    @When("I select Amazon Rainforest  from the dropdown")
@@ -187,24 +172,14 @@ public class HomePageStepdefinition extends WebAPI {
 //        homepage.validatedynamicdropdownValue();
 //    }
 
-    @When("I select Congo from the dropdown")
-    public void i_select_Congo_from_the_dropdown() {
-        homepage.assertDropdownValueSelection();
+    @When("I select {string} from the dropdown")
+    public void i_select_from_the_dropdown(String item) {
+        homepage.assertDynamicDropdownValueSelection(item);
     }
 
-    @Then("I should able to see You selected: Congo displayed")
-    public void i_should_able_to_see_You_selected_Congo_displayed() {
-        homepage.validatedropdownValue();
-    }
-
-    @When("I select Daintree from the dropdown")
-    public void i_select_Daintree_from_the_dropdown() {
-        homepage.assertDynamicDropdownValueSelection();
-    }
-
-    @Then("I should able to see You selected: Daintree displayed")
-    public void i_should_able_to_see_You_selected_Amazon_displayed() {
-        homepage.validateDynamicdropdownValue();
+    @Then("I should able to see {string} displayed")
+    public void i_should_able_to_see_displayed(String expected) {
+        homepage.validateDynamicdropdownValue(expected);
     }
 
     @When("I select the Jaguar radio button")
@@ -222,19 +197,14 @@ public class HomePageStepdefinition extends WebAPI {
         homepage.clickOnRadiobtn1();
     }
 
-    @Then("I should be able to see You selected: Jaguar dispalyed")
-    public void i_should_be_able_to_see_You_selected_Jaguar_dispalyed() {
-        homepage.validateRadiobtn();
+    @Then("I should be able to see {string} displayed")
+    public void i_should_be_able_to_see_displayed(String string) {
+        homepage.validatemultipleRadiobtn(string);
     }
 
     @When("I select Sloth from the radio button section")
     public void i_select_Sloth_from_the_radio_button_section() {
         homepage.clickOnRadiobtn2();
-    }
-
-    @Then("I should be able to see You selected: Sloth dispalyed")
-    public void i_should_be_able_to_see_You_selected_Sloth_dispalyed() {
-        homepage.validatemultipleRadiobtn();
     }
 
     @When("I select Medicinal Plants and Timber checkboxes")
@@ -243,14 +213,9 @@ public class HomePageStepdefinition extends WebAPI {
         homepage.clickOnCheckbox2();
     }
 
-    @Then("I should see You selected: Medicinal Plants, Timber displayed")
-    public void I_should_see_You_selected_Medicinal_Plants_Timber_displayed() {
-        homepage.validatemultipleCheckboxSelection();
-    }
-
-    @When("I select Medicinal Plants checkboxes")
-    public void I_select_Medicinal_Plants_checkboxes() {
-        homepage.clickOnCheckbox1();
+    @Then("A valid message {string} should displayed")
+    public void A_valid_message_should_displayed(String expected) {
+        homepage.validatemultipleCheckboxSelection(expected);
     }
 
     @When("I deselect all checkboxes")
@@ -258,20 +223,39 @@ public class HomePageStepdefinition extends WebAPI {
         homepage.validateUnCheckedbox();
     }
 
-    @Then("I should see No resources selected. displayed")
-    public void I_should_see_No_resources_selected_displayed() {
-        homepage.validateUnCheckboxmessage();
+    @Then("A message {string} should displayed")
+    public void A_message_should_displayed(String expected) {
+        homepage.validateUnCheckboxmessage(expected);
     }
 
     @When("I select {string} from the date picker")
-    public void i_select_from_the_date_picker(String string) {
-        string = "12/21/2024";
-        homepage.datePicker(string);
+    public void i_select_from_the_date_picker(String date) {
+        homepage.datePicker(date);
     }
 
     @Then("I should see the {string}")
-    public void I_should_see_the(String string){
-        string="You selected: 2024-12-21";
-        homepage.datePickerAssertion();
+    public void I_should_see_the(String expected) {
+        homepage.datePickerAssertion(expected);
     }
+
+    @When("I click on the Rainforest Name column header")
+    public void i_click_on_the_Rainforest_Name_column_header() {
+       homepage.interactiveCol1Click();
+    }
+
+    @Then("the Rainforest Name column should be sorted alphabetically")
+    public void the_Rainforest_Name_column_should_be_sorted_alphabetically() {
+       homepage.validateSortedTableData();
+    }
+
+    @When("I type {string} in the filter input")
+    public void i_type_in_the_filter_input(String input) {
+        homepage.filterInteractiveTable(input);
+    }
+
+    @Then("only rows containing {string} should be displayed")
+    public void only_rows_containing_should_be_displayed(String input) {
+        homepage.validateFilterInteractiveTableData(input);
+    }
+
 }

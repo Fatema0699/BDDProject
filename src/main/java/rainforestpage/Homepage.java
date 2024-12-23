@@ -2,6 +2,7 @@ package rainforestpage;
 
 import common.WebAPI;
 import org.junit.Assert;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
@@ -11,6 +12,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -56,6 +58,10 @@ public class Homepage extends WebAPI {
     public WebElement datePickerWebelement;
     @FindBy(how = How.ID, using = "dateResult")
     public WebElement datepickerResultWebelement;
+    @FindBy(how = How.XPATH, using = "/html[1]/body[1]/section[1]/table[1]/thead[1]/tr[1]/th[1]")
+    public WebElement interactivetableColumn1Webelement;
+    @FindBy(how = How.ID, using = "filter")
+    public WebElement filterInteractivetableWebelement;
 
     //Action methods
     public void clickOnHomeLink() {
@@ -114,8 +120,16 @@ public class Homepage extends WebAPI {
         checkBox2Webelement.click();
     }
 
-    public void datePicker(String date){
+    public void datePicker(String date) {
         datePickerWebelement.sendKeys(date);
+    }
+
+    public void interactiveCol1Click() {
+        interactivetableColumn1Webelement.click();
+    }
+
+    public void filterInteractiveTable(String input) {
+        filterInteractivetableWebelement.sendKeys(input);
     }
 
     //Validation and assertion
@@ -131,27 +145,23 @@ public class Homepage extends WebAPI {
         assertEquals("Assertion failed", expected, actual);
     }
 
-    public void validatebacktohomelink() {
+    public void validatebacktohomelink(String expectedUrl) {
         String actualUrl = driver.getCurrentUrl();
-        String expectedUrl = "https://monsur26.github.io/mypage/index.html";
         assertEquals("The URL of the new tab does not match", expectedUrl, actualUrl);
     }
 
-    public void validatehomelink() {
+    public void validatehomelink(String expectedUrl) {
         String actualUrl = driver.getCurrentUrl();
-        String expectedUrl = "https://monsur26.github.io/mypage/#";
         assertEquals("The URL of the new tab does not match", expectedUrl, actualUrl);
     }
 
-    public void validateshoplink() {
+    public void validateshoplink(String expectedUrl) {
         String actualUrl = driver.getCurrentUrl();
-        String expectedUrl = "https://monsur26.github.io/mypage/shop.html";
         assertEquals("The URL of the new tab does not match", expectedUrl, actualUrl);
     }
 
-    public void validatecontactlink() {
+    public void validatecontactlink(String expectedUrl) {
         String actualUrl = driver.getCurrentUrl();
-        String expectedUrl = "https://monsur26.github.io/mypage/contact.html";
         assertEquals("The URL of the new tab does not match", expectedUrl, actualUrl);
     }
 
@@ -187,24 +197,22 @@ public class Homepage extends WebAPI {
         dropdown.selectByValue("Congo"); // Ensure "Congo" matches the value attribute in the dropdown
     }
 
-    public void validatedropdownValue() {
+    public void validatedropdownValue(String expected) {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        wait.until(ExpectedConditions.textToBePresentInElement(dropdownResultValidationWebelement, "You selected: Congo"));
+        wait.until(ExpectedConditions.textToBePresentInElement(dropdownResultValidationWebelement, expected));
         String actual = dropdownResultValidationWebelement.getText();
-        String expected = "You selected: Congo";
         Assert.assertEquals("Assertion failed", expected, actual);
     }
 
-    public void assertDynamicDropdownValueSelection() {
+    public void assertDynamicDropdownValueSelection(String item) {
         Select dropdown = new Select(dropdownOptionWebelement);
-        dropdown.selectByValue("Daintree"); // Ensure "Amazon" matches the value attribute in the dropdown
+        dropdown.selectByValue(item);
     }
 
-    public void validateDynamicdropdownValue() {
+    public void validateDynamicdropdownValue(String expected) {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
-        wait.until(ExpectedConditions.textToBePresentInElement(dropdownResultValidationWebelement, "You selected: Daintree"));
+        wait.until(ExpectedConditions.textToBePresentInElement(dropdownResultValidationWebelement, expected));
         String actual = dropdownResultValidationWebelement.getText();
-        String expected = "You selected: Daintree";
         Assert.assertEquals("Assertion failed", expected, actual);
     }
 
@@ -217,18 +225,16 @@ public class Homepage extends WebAPI {
         Assert.assertEquals("Assertion failed", expected, actual);
     }
 
-    public void validatemultipleRadiobtn() {
+    public void validatemultipleRadiobtn(String expected) {
         boolean selected = true;
         selected = radioBtn1Webelement.isSelected();
         System.out.println(selected);
         String actual = radiobtnResultWebelement.getText();
-        String expected = "You selected: Sloth";
         Assert.assertEquals("Assertion failed", expected, actual);
     }
 
-    public void validatemultipleCheckboxSelection() {
+    public void validatemultipleCheckboxSelection(String expected) {
         String actual = checkboxResultWebelement.getText();
-        String expected = "You selected: Medicinal Plants, Timber";
         Assert.assertEquals("Assertion failed", expected, actual);
     }
 
@@ -241,18 +247,42 @@ public class Homepage extends WebAPI {
         }
     }
 
-    public void validateUnCheckboxmessage() {
+    public void validateUnCheckboxmessage(String expected) {
         String actual = checkboxResultWebelement.getText();
-        String expected = "No resources selected.";
         Assert.assertEquals("Assertion failed", expected, actual);
     }
 
-    public void datePickerAssertion(){
+    public void datePickerAssertion(String expected) {
         String actual = datepickerResultWebelement.getText();
-        String expected = "You selected: 2024-12-21";
         Assert.assertEquals("Assertion failed", expected, actual);
     }
 
+    public void validateSortedTableData() {
+        List<WebElement> columnDataElements = driver.findElements(By.xpath("//*[@id=\"rainforestTable\"]/tbody/tr/td[1]"));
+
+        // Extract text from the elements
+        List<String> actualData = new ArrayList<>();
+        for (WebElement element : columnDataElements) {
+            actualData.add(element.getText());
+        }
+        // Create a copy of the data and sort it
+        List<String> expectedData = new ArrayList<>(actualData);
+        Collections.sort(expectedData);
+        Assert.assertEquals("Assertion failed", expectedData, actualData);
+    }
+    public void validateFilterInteractiveTableData(String input){
+        List<WebElement> rowsData = driver.findElements(By.xpath("//*[@id=\"rainforestTable\"]/tbody/tr"));
+        // Extract text from the elements
+        List<String> actualData = new ArrayList<>();
+        for (WebElement element : rowsData) {
+            String rowText = element.getText();
+            if(rowText.contains(input)){
+                Assert.assertTrue(true);
+            }else {
+                Assert.assertTrue(false);
+            }
+        }
+    }
 
 
 }
