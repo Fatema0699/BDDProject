@@ -12,7 +12,7 @@ import org.junit.runner.RunWith;
         strict = true,
         monochrome = true,
         dryRun = false,
-        tags = "@Interactivetable2")
+        tags = "@videoplayertest2")
 
 public class TestRunner {
 }

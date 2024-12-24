@@ -2,7 +2,9 @@ package rainforestpage;
 
 import common.WebAPI;
 import org.junit.Assert;
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
@@ -62,7 +64,18 @@ public class Homepage extends WebAPI {
     public WebElement interactivetableColumn1Webelement;
     @FindBy(how = How.ID, using = "filter")
     public WebElement filterInteractivetableWebelement;
-
+    @FindBy(how = How.ID, using = "alert-Btn")
+    public WebElement customAlertBtnWebelement;
+    @FindBy(how = How.TAG_NAME, using = "video")
+    public WebElement videoWebelement;
+    @FindBy(how = How.XPATH, using = "/html/body/section/button[4]")
+    public WebElement videoToggleBtnWebelement;
+    @FindBy(how = How.ID,using = "videoSection")
+    public WebElement videosectionWebelement;
+    @FindBy(how = How.XPATH, using = "/html/body/section/button[5]")
+    public WebElement imageToggleBtnWebelement;
+    @FindBy(how = How.XPATH, using = "/html/body/section/button[6]")
+    public WebElement iframeToggleBtnWebelement;
     //Action methods
     public void clickOnHomeLink() {
         homeLinkWebelement.click();
@@ -130,6 +143,14 @@ public class Homepage extends WebAPI {
 
     public void filterInteractiveTable(String input) {
         filterInteractivetableWebelement.sendKeys(input);
+    }
+
+    public void clickOnCustomAlertbtn(){
+        customAlertBtnWebelement.click();
+    }
+
+    public void clickOnVideoTogglebtn(){
+        videoToggleBtnWebelement.click();
     }
 
     //Validation and assertion
@@ -270,19 +291,71 @@ public class Homepage extends WebAPI {
         Collections.sort(expectedData);
         Assert.assertEquals("Assertion failed", expectedData, actualData);
     }
-    public void validateFilterInteractiveTableData(String input){
+
+    public void validateFilterInteractiveTableData(String input) {
         List<WebElement> rowsData = driver.findElements(By.xpath("//*[@id=\"rainforestTable\"]/tbody/tr"));
         // Extract text from the elements
         List<String> actualData = new ArrayList<>();
         for (WebElement element : rowsData) {
-            String rowText = element.getText();
-            if(rowText.contains(input)){
-                Assert.assertTrue(true);
-            }else {
-                Assert.assertTrue(false);
+            if (element.getAttribute("style").contains("display: none;")) {
+                System.out.println("Bad");
+            } else {
+                String rowText = element.getText();
+                if (rowText.contains(input)) {
+                    Assert.assertTrue(true);
+                } else {
+                    Assert.fail();
+                }
             }
         }
     }
+
+    public void validateConfirmingCustomAlert(){
+        Alert alert = driver.switchTo().alert();
+        alert.accept();
+    }
+
+    public void validateCancelingCustomAlert(){
+        Alert alert = driver.switchTo().alert();
+        alert.dismiss();
+    }
+
+    public void validateAlertmsg(String expected){
+        Alert alert = driver.switchTo().alert();
+        String actual = alert.getText();
+        Assert.assertEquals("Assertion failed", expected, actual);
+    }
+
+    public void validateVdosectionDisplay() throws InterruptedException {
+        Thread.sleep(1000);
+        Assert.assertTrue("Video section should be visible", videosectionWebelement.isDisplayed());
+    }
+
+    public void validatePlayVideofunctions(){
+        // Play the video using JavaScript execution
+        ((JavascriptExecutor) driver).executeScript("arguments[0].play();", videoWebelement);
+    }
+
+    public void assrtVideoplayingwithouterror(){
+        // Check if the video is playing by verifying the paused attribute
+        Boolean isPlaying = (Boolean) ((JavascriptExecutor) driver).executeScript("return !arguments[0].paused;",videoWebelement);
+
+        // Assert that the video is playing (not paused)
+        Assert.assertTrue("The video should be playing without errors", isPlaying);
+    }
+    public void validatePauseVideofunctions(){
+        // Play the video using JavaScript execution
+        ((JavascriptExecutor) driver).executeScript("arguments[0].pause();", videoWebelement);
+    }
+
+    public void assrtVideopausingwithouterror(){
+        // Check if the video is pausing by verifying the palyed attribute
+        Boolean isPaused = (Boolean) ((JavascriptExecutor) driver).executeScript("return arguments[0].paused;",videoWebelement);
+
+        // Assert that the video is paused (not playing)
+        Assert.assertTrue("The video should be paused without errors", isPaused);
+    }
+
 
 
 }

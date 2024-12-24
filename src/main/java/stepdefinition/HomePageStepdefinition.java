@@ -258,4 +258,54 @@ public class HomePageStepdefinition extends WebAPI {
         homepage.validateFilterInteractiveTableData(input);
     }
 
+    @When("I click on the Click me for a custom alert! button")
+    public void i_click_on_the_Click_me_for_a_custom_alert_button() {
+        homepage.clickOnCustomAlertbtn();
+    }
+
+    @When("I confirm the custom alert")
+    public void i_confirm_the_custom_alert() {
+        homepage.validateConfirmingCustomAlert();
+    }
+
+    @Then("I should see a message {string}")
+    public void i_should_see_a_message(String string) {
+        homepage.validateAlertmsg(string);
+    }
+
+    @When("I cancel the custom alert")
+    public void i_cancel_the_custom_alert() {
+        homepage.validateCancelingCustomAlert();
+    }
+
+    @When("I click on video toggle button")
+    public void i_click_on_video_toggle_button() {
+        homepage.clickOnVideoTogglebtn();
+    }
+
+    @Then("I should see the video section")
+    public void i_should_see_the_video_section() throws InterruptedException {
+        homepage.validateVdosectionDisplay();
+    }
+    @When("I play the video")
+    public void i_play_the_video() {
+        homepage.validatePlayVideofunctions();
+    }
+    @Then("the video should play without errors")
+    public void the_video_should_play_without_errors() {
+        homepage.assrtVideoplayingwithouterror();
+    }
+    @When("I pause the video")
+    public void i_pause_the_video() {
+        homepage.validatePauseVideofunctions();
+    }
+    @Then("the video should pause without errors")
+    public void the_video_should_pause_without_errors() {
+        homepage.assrtVideopausingwithouterror();
+    }
+    @When("I again play the video")
+    public void i_again_play_the_video() {
+        homepage.validatePlayVideofunctions();
+    }
+
 }

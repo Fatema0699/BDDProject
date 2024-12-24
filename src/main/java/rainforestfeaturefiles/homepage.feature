@@ -115,3 +115,37 @@ Feature: Rainforest Homepage Tests
     Given  I navigate to the Rainforest homepage
     When I type "Amazon" in the filter input
     Then only rows containing "Amazon" should be displayed
+
+  @CustomAlertOK
+  Scenario: Confirming a custom alert
+    Given  I navigate to the Rainforest homepage
+    When I click on the Click me for a custom alert! button
+    And I confirm the custom alert
+    Then I should see a message "You clicked OK!"
+
+  @CustomAlertCancel
+  Scenario: Cancelling a custom alert
+    Given  I navigate to the Rainforest homepage
+    When I click on the Click me for a custom alert! button
+    And I cancel the custom alert
+    Then I should see a message "You clicked Cancel!"
+
+  @videoplayertest1
+  Scenario: Video playing functionalities
+    Given  I navigate to the Rainforest homepage
+    When I click on video toggle button
+    Then I should see the video section
+    When I play the video
+    Then the video should play without errors
+
+  @videoplayertest2
+  Scenario: Play and pause video functionalities
+    Given  I navigate to the Rainforest homepage
+    When I click on video toggle button
+    Then I should see the video section
+    When I play the video
+    Then the video should play without errors
+    When I pause the video
+    Then the video should pause without errors
+    When I again play the video
+    Then the video should play without errors
