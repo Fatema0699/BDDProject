@@ -240,12 +240,12 @@ public class HomePageStepdefinition extends WebAPI {
 
     @When("I click on the Rainforest Name column header")
     public void i_click_on_the_Rainforest_Name_column_header() {
-       homepage.interactiveCol1Click();
+        homepage.interactiveCol1Click();
     }
 
     @Then("the Rainforest Name column should be sorted alphabetically")
     public void the_Rainforest_Name_column_should_be_sorted_alphabetically() {
-       homepage.validateSortedTableData();
+        homepage.validateSortedTableData();
     }
 
     @When("I type {string} in the filter input")
@@ -287,25 +287,60 @@ public class HomePageStepdefinition extends WebAPI {
     public void i_should_see_the_video_section() throws InterruptedException {
         homepage.validateVdosectionDisplay();
     }
+
     @When("I play the video")
     public void i_play_the_video() {
         homepage.validatePlayVideofunctions();
     }
+
     @Then("the video should play without errors")
     public void the_video_should_play_without_errors() {
         homepage.assrtVideoplayingwithouterror();
     }
+
     @When("I pause the video")
     public void i_pause_the_video() {
         homepage.validatePauseVideofunctions();
     }
+
     @Then("the video should pause without errors")
     public void the_video_should_pause_without_errors() {
         homepage.assrtVideopausingwithouterror();
     }
+
     @When("I again play the video")
     public void i_again_play_the_video() {
         homepage.validatePlayVideofunctions();
+    }
+
+    @When("I click on the iframe toggle button to display the iframe")
+    public void i_click_on_the_iframe_toggle_button_to_display_the_iframe() {
+        homepage.clickOniframeTogglebtn();
+    }
+
+    @Then("the iframe should become visible")
+    public void the_iframe_should_become_visible() {
+        homepage.validateIframedisplay();
+    }
+
+    @Then("I switch focus to the iframe")
+    public void i_switch_focus_to_the_iframe() {
+        homepage.switchingToiframe();
+    }
+
+    @Then("I validate that the iframe content is correctly loaded")
+    public void i_validate_that_the_iframe_content_is_correctly_loaded() {
+        homepage.assertIframeContentvisibility();
+    }
+
+    @When("I switch back to main page")
+    public void i_switch_back_to_main_page() {
+        homepage.swichingBacktomainpage();
+    }
+
+    @Then("I validate that the mainpage content is correctly loaded")
+    public void i_validate_that_the_mainpage_content_is_correctly_loaded() {
+        homepage.validateMainpagevisibility();
     }
 
 }

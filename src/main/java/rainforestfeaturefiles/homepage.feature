@@ -1,3 +1,4 @@
+@Homepagetests
 Feature: Rainforest Homepage Tests
 
   @GeneralpageRendering
@@ -14,7 +15,7 @@ Feature: Rainforest Homepage Tests
     When I click on the Home link
     Then I should be redirected to the homepage "https://monsur26.github.io/mypage/#"
     When I click on the Shop link
-    Then I should be redirected to the shoppage "https://monsur26.github.io/mypage/shop"
+    Then I should be redirected to the shoppage "https://monsur26.github.io/mypage/shop.html"
     When I click on the Back to home link
     Then I should be back to the homepage "https://monsur26.github.io/mypage/index.html"
     When I click on the Contact link
@@ -149,3 +150,22 @@ Feature: Rainforest Homepage Tests
     Then the video should pause without errors
     When I again play the video
     Then the video should play without errors
+
+  @iframetest1
+  Scenario: Verify iframe content is loaded correctly
+    Given I navigate to the Rainforest homepage
+    When I click on the iframe toggle button to display the iframe
+    Then the iframe should become visible
+    And I switch focus to the iframe
+    Then I validate that the iframe content is correctly loaded
+
+  @iframetest2
+  Scenario: Verify iframe content is loaded correctly
+    Given I navigate to the Rainforest homepage
+    When I click on the iframe toggle button to display the iframe
+    Then the iframe should become visible
+    And I switch focus to the iframe
+    Then I validate that the iframe content is correctly loaded
+    When I switch back to main page
+    Then I validate that the mainpage content is correctly loaded
+

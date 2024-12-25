@@ -18,6 +18,7 @@ import java.util.Collections;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class Homepage extends WebAPI {
     @FindBy(how = How.XPATH, using = "/html/body/header/h1")
@@ -76,6 +77,13 @@ public class Homepage extends WebAPI {
     public WebElement imageToggleBtnWebelement;
     @FindBy(how = How.XPATH, using = "/html/body/section/button[6]")
     public WebElement iframeToggleBtnWebelement;
+    @FindBy(how = How.ID,using = "frame1")
+    public WebElement iframeWebelement;
+    @FindBy(how = How.ID,using = "firstHeading")
+    public WebElement iframeFirstheadingWebelement;
+    @FindBy(how = How.XPATH,using = "/html/body/section/h2[1]")
+    public WebElement mainpageHeaderWebelement;
+
     //Action methods
     public void clickOnHomeLink() {
         homeLinkWebelement.click();
@@ -151,6 +159,10 @@ public class Homepage extends WebAPI {
 
     public void clickOnVideoTogglebtn(){
         videoToggleBtnWebelement.click();
+    }
+
+    public void clickOniframeTogglebtn(){
+        iframeToggleBtnWebelement.click();
     }
 
     //Validation and assertion
@@ -356,6 +368,34 @@ public class Homepage extends WebAPI {
         Assert.assertTrue("The video should be paused without errors", isPaused);
     }
 
+    public void validateIframedisplay(){
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.visibilityOf(iframeWebelement));
+        Assert.assertTrue("The iframe is not visible", iframeWebelement.isDisplayed());
+    }
 
+    public void switchingToiframe(){
+        driver.switchTo().frame(iframeWebelement);
+    }
+
+    public void assertIframeContentvisibility(){
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        WebElement uniqueElement = wait.until(ExpectedConditions.visibilityOf(iframeFirstheadingWebelement));
+        String headingText = uniqueElement.getText();
+        System.out.println(headingText);
+        assertTrue("Iframe content validation failed: Expected 'Rainforest' in the content.",headingText.contains("Rainforest"));
+    }
+
+    public void swichingBacktomainpage(){
+        driver.switchTo().defaultContent();
+    }
+
+    public void validateMainpagevisibility(){
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        WebElement mainpageElement = wait.until(ExpectedConditions.visibilityOf(mainpageHeaderWebelement));
+        String headingText = mainpageElement.getText();
+        System.out.println(headingText);
+        assertTrue("Switching back to main page validation failed: Expected 'Welcome to RainForest' in the content.",headingText.contains("Welcome to RainForest"));
+    }
 
 }
