@@ -169,3 +169,27 @@ Feature: Rainforest Homepage Tests
     When I switch back to main page
     Then I validate that the mainpage content is correctly loaded
 
+  @HorizontalScroller
+  Scenario: Verify horizontal scrolling with Next and Previous buttons
+    Given I navigate to the Rainforest homepage
+    When I click on the Image section toggle button to display the iframe
+    Then the scroller section should become visible
+    And I click on the Next button
+    Then the images should change correctly
+    When I click on the Previous button
+    Then the images should change correctly
+
+  @HorizontalScroller1
+  Scenario: Verify horizontal scrolling with Next and Previous buttons
+    Given I navigate to the Rainforest homepage
+    When I click on the Image section toggle button to display the iframe
+    Then the scroller section should become visible
+    When I click on the image
+    Then the images should change correctly
+
+  @DragandDrop
+  Scenario: Add a new card
+    Given I navigate to the Rainforest homepage
+    When I enter "Test Card" as the title
+    And I click the Add Card button
+    Then the new card with the title Test Card should be added to the container

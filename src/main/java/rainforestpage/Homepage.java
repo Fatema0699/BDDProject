@@ -83,6 +83,16 @@ public class Homepage extends WebAPI {
     public WebElement iframeFirstheadingWebelement;
     @FindBy(how = How.XPATH,using = "/html/body/section/h2[1]")
     public WebElement mainpageHeaderWebelement;
+    @FindBy(how = How.ID,using = "scroller-images")
+    public WebElement scrollerImageWebelement;
+    @FindBy (how = How.ID,using = "imageSection")
+    public WebElement imagesectionWebelement;
+    @FindBy (how = How.ID,using = "cardTitle")
+    public WebElement cardTitleWebelement;
+    @FindBy (how = How.XPATH,using = "/html/body/section/div[5]/button")
+    public WebElement addCardbtnWebelement;
+    @FindBy (how = How.XPATH,using = "//*[@id=\"cardsContainer\"]/div[2]")
+    public WebElement newCardbtnWebelement;
 
     //Action methods
     public void clickOnHomeLink() {
@@ -163,6 +173,18 @@ public class Homepage extends WebAPI {
 
     public void clickOniframeTogglebtn(){
         iframeToggleBtnWebelement.click();
+    }
+
+    public void clickOnImageScrollerTogglebtn(){
+        imageToggleBtnWebelement.click();
+    }
+
+    public void addcard(String card){
+        cardTitleWebelement.sendKeys(card);
+    }
+
+    public void clickOnAddCardbtn(){
+        addCardbtnWebelement.click();
     }
 
     //Validation and assertion
@@ -344,25 +366,29 @@ public class Homepage extends WebAPI {
     }
 
     public void validatePlayVideofunctions(){
+        JavascriptExecutor js = (JavascriptExecutor) driver;
         // Play the video using JavaScript execution
-        ((JavascriptExecutor) driver).executeScript("arguments[0].play();", videoWebelement);
+        js.executeScript("arguments[0].play();", videoWebelement);
     }
 
     public void assrtVideoplayingwithouterror(){
+        JavascriptExecutor js = (JavascriptExecutor) driver;
         // Check if the video is playing by verifying the paused attribute
-        Boolean isPlaying = (Boolean) ((JavascriptExecutor) driver).executeScript("return !arguments[0].paused;",videoWebelement);
+        Boolean isPlaying = (Boolean) js.executeScript("return !arguments[0].paused;",videoWebelement);
 
         // Assert that the video is playing (not paused)
         Assert.assertTrue("The video should be playing without errors", isPlaying);
     }
     public void validatePauseVideofunctions(){
+        JavascriptExecutor js = (JavascriptExecutor) driver;
         // Play the video using JavaScript execution
-        ((JavascriptExecutor) driver).executeScript("arguments[0].pause();", videoWebelement);
+        js.executeScript("arguments[0].pause();", videoWebelement);
     }
 
     public void assrtVideopausingwithouterror(){
+        JavascriptExecutor js = (JavascriptExecutor) driver;
         // Check if the video is pausing by verifying the palyed attribute
-        Boolean isPaused = (Boolean) ((JavascriptExecutor) driver).executeScript("return arguments[0].paused;",videoWebelement);
+        Boolean isPaused = (Boolean) js.executeScript("return arguments[0].paused;",videoWebelement);
 
         // Assert that the video is paused (not playing)
         Assert.assertTrue("The video should be paused without errors", isPaused);
@@ -396,6 +422,38 @@ public class Homepage extends WebAPI {
         String headingText = mainpageElement.getText();
         System.out.println(headingText);
         assertTrue("Switching back to main page validation failed: Expected 'Welcome to RainForest' in the content.",headingText.contains("Welcome to RainForest"));
+    }
+
+    public void validateImagesectiondisplay(){
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.visibilityOf(imagesectionWebelement));
+        Assert.assertTrue("The iframe is not visible", imagesectionWebelement.isDisplayed());
+    }
+
+    public void validateNextScrollerbuttonfunctionality() {
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("document.querySelector('.scroller-button[onclick=\"changeImages(\\'next\\')\"]').click();"); // Scroll right
+    }
+
+    public void validatePreviousScrollerbuttonfunctionality() {
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("document.querySelector('.scroller-button[onclick=\"changeImages(\\'prev\\')\"]').click();"); // Scroll left
+    }
+
+    public void assertImageChangFunctionality(){
+        String currentImageSrc = scrollerImageWebelement.getAttribute("src");
+        assertTrue("Image source is empty.", !currentImageSrc.isEmpty());
+    }
+
+    public void clickOnScrollerImage() {
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("document.querySelector('#scroller-images').click();"); // Click the image
+    }
+
+    public void addNewCard() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.visibilityOf(newCardbtnWebelement));
+        Assert.assertTrue("The new card is not visible", newCardbtnWebelement.isDisplayed());
     }
 
 }

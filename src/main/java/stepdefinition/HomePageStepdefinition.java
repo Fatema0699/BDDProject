@@ -343,4 +343,48 @@ public class HomePageStepdefinition extends WebAPI {
         homepage.validateMainpagevisibility();
     }
 
+    @Then("the scroller section should become visible")
+    public void the_scroller_section_should_become_visible() {
+        homepage.validateImagesectiondisplay();
+    }
+
+    @When("I click on the Image section toggle button to display the iframe")
+    public void i_click_on_the_Image_section_toggle_button_to_display_the_iframe() {
+        homepage.clickOnImageScrollerTogglebtn();
+    }
+
+    @When("I click on the Next button")
+    public void i_click_on_the_Next_button() {
+        homepage.validateNextScrollerbuttonfunctionality();
+    }
+
+    @Then("the images should change correctly")
+    public void the_images_should_change_correctly() {
+        homepage.assertImageChangFunctionality();
+    }
+
+    @When("I click on the Previous button")
+    public void i_click_on_the_Previous_button() {
+        homepage.validatePreviousScrollerbuttonfunctionality();
+    }
+
+    @When ("I click on the image")
+    public void  I_click_on_the_image(){
+        homepage.clickOnScrollerImage();
+    }
+
+    @When("I enter {string} as the title")
+    public void i_enter_as_the_title(String string) {
+       homepage.addcard(string);
+    }
+
+    @When("I click the Add Card button")
+    public void i_click_the_Add_Card_button() {
+        homepage.clickOnAddCardbtn();
+    }
+    @Then("the new card with the title Test Card should be added to the container")
+    public void the_new_card_with_the_title_Test_Card_should_be_added_to_the_container() {
+        homepage.addNewCard();
+    }
+
 }

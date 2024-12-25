@@ -1,3 +1,4 @@
+@Contactpagetest
 Feature: Form Validation for Required Fields
 @ContactPage1stTest
   Scenario: Validate that all form fields are required
